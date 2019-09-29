@@ -9,8 +9,9 @@
  */
 
 #include "ulapack.h"
-
+#include <rtthread.h>
 #include <stdio.h>
+#include <time.h>
 
 /**
  * @name run_regression
@@ -30,8 +31,8 @@ static void run_regression(const MatrixEntry_t * xdata,
     /*
      * Declare matrix objects.
      */
-    Matrix_t x;
-    Matrix_t y;
+    Matrix_t* x = RT_NULL;
+    Matrix_t* y = RT_NULL;
 
     /*
      * Initialize matrix objects.
@@ -42,16 +43,19 @@ static void run_regression(const MatrixEntry_t * xdata,
     /*
      * Copy data points into vector objects.
      */
-    ulapack_array_col_copy(ydata, &y, 0, data_points);
-    ulapack_array_col_copy(xdata, &x, 0, data_points);
+    ulapack_array_col_copy(ydata, y, 0, data_points);
+    ulapack_array_col_copy(xdata, x, 0, data_points);
 
     /*
      * Run the regression.
      */
-    ulapack_polyfit(&x, &y, nth_degree, polynomial_coefs);
+    ulapack_polyfit(x, y, nth_degree, polynomial_coefs);
 }
 
-int main(void) {
+void ulapack_polyfit_thread_entry(void* parameters) {
+    clock_t start, end;
+    float cpu_time_used;
+    start = clock();
 
     MatrixEntry_t xdata[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     /*
@@ -64,16 +68,34 @@ int main(void) {
                              81.458282, 101.281631};
 
     const Index_t degree = 2;
-    Matrix_t p;
+    Matrix_t* p = RT_NULL;
 
     ulapack_init(&p, degree + 1, 1);
 
-    run_regression(xdata, ydata, 10, 2, &p);
+    run_regression(xdata, ydata, 10, 2, p);
 
     printf("\nFit coefficients: \n");
-    ulapack_print(&p, stdout);
+    ulapack_print(p, stdout);
 
+    end = clock();
+    cpu_time_used = ((float) (end - start)) / CLOCKS_PER_SEC;
+    printf("[ulapack] Total speed was %f ms\n", cpu_time_used * 1000);
 }
+
+static void ulapack_polyfit_example(int argc, char *argv[])
+{
+    rt_thread_t thread = rt_thread_create("u_poly", ulapack_polyfit_thread_entry, RT_NULL, 2048, 25, 10);
+    if(thread != RT_NULL)
+    {
+        rt_thread_startup(thread);
+        rt_kprintf("[ulapack] New thread pca\n");
+    }
+    else
+    {
+        rt_kprintf("[ylapack] Failed to create thread pca\n");
+    }
+}
+MSH_CMD_EXPORT(ulapack_polyfit_example, elapack polyfit example);
 
 /*
  * Corresponding MATLAB code for comparison.
