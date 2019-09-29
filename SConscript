@@ -6,14 +6,14 @@ import rtconfig
 cwd     = GetCurrentDir()
 # The set of source files associated with this SConscript file.
 
-src  = Glob('examples/*.c')
-src += Glob('src/*.c')
+src     = Glob('src/*.c')
 
 # Examples
 if GetDepend('ULAPACK_USING_PCA'):
-	src    += Glob('examples/u_pca.c')
+    src    += Glob('examples/u_pca.c')
+
 if GetDepend('ULAPACK_USING_POLYFIT'):
-	src    += Glob('examples/u_polyfit.c')
+    src    += Glob('examples/u_polyfit.c')
 
 path    = [cwd + '/']
 path   += [cwd + '/src']
