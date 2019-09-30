@@ -73,10 +73,10 @@ static void ulapack_pca_example(int argc, char *argv[])
     }
     else
     {
-        rt_kprintf("[ylapack] Failed to create thread pca\n");
+        rt_kprintf("[ulapack] Failed to create thread pca\n");
     }
 }
-MSH_CMD_EXPORT(ulapack_pca_example, elapack PCA example);
+MSH_CMD_EXPORT(ulapack_pca_example, ulapack PCA example);
 
 /*
  * Corresponding MATLAB code for comparison.

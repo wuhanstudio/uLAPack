@@ -9,6 +9,9 @@ cwd     = GetCurrentDir()
 src     = Glob('src/*.c')
 
 # Examples
+if GetDepend('ULAPACK_USING_SVD'):
+    src    += Glob('examples/u_svd.c')
+
 if GetDepend('ULAPACK_USING_PCA'):
     src    += Glob('examples/u_pca.c')
 

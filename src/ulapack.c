@@ -2391,7 +2391,7 @@ MatrixError_t ulapack_svd(const Matrix_t * const matrix,
         S->n_cols = 1;
 
         V->n_rows = matrix->n_cols;
-        V->n_cols = matrix->n_cols;        
+        V->n_cols = matrix->n_cols;
     #endif
         
     /*

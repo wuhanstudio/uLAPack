@@ -92,10 +92,10 @@ static void ulapack_polyfit_example(int argc, char *argv[])
     }
     else
     {
-        rt_kprintf("[ylapack] Failed to create thread pca\n");
+        rt_kprintf("[ulapack] Failed to create thread pca\n");
     }
 }
-MSH_CMD_EXPORT(ulapack_polyfit_example, elapack polyfit example);
+MSH_CMD_EXPORT(ulapack_polyfit_example, ulapack polyfit example);
 
 /*
  * Corresponding MATLAB code for comparison.
