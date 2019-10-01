@@ -12,6 +12,8 @@
  * @todo new line the return codes in dox for readability.
  */
 
+#include <rtthread.h>
+
 /*
  * File header guards.
  */
