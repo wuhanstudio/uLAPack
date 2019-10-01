@@ -13,8 +13,6 @@
 
 static void run_svd(double Amatrix[17][15]) 
 {
-    MatrixError_t ret;
-
     Matrix_t* A = RT_NULL;
     Matrix_t* U = RT_NULL;
     Matrix_t* S = RT_NULL;
