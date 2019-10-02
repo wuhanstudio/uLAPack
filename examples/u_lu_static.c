@@ -62,6 +62,7 @@ static void ulapack_lu_thread_entry(void* parameters)
                            5, 6, 7, 8
     };
     run_lu(Adata);
+
     end = clock();
     cpu_time_used = ((float) (end - start)) / CLOCKS_PER_SEC;
     printf("[ulapack] Total speed was %f ms\n", cpu_time_used * 1000);
