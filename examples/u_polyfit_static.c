@@ -90,7 +90,7 @@ void ulapack_polyfit_thread_entry(void* parameters) {
 
 static void ulapack_polyfit_example(int argc, char *argv[])
 {
-    rt_thread_t thread = rt_thread_create("u_poly", ulapack_polyfit_thread_entry, RT_NULL, 30720, 25, 10);
+    rt_thread_t thread = rt_thread_create("u_poly", ulapack_polyfit_thread_entry, RT_NULL, 40960, 25, 10);
     if(thread != RT_NULL)
     {
         rt_thread_startup(thread);
