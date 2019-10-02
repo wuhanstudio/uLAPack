@@ -86,7 +86,6 @@
 /*
  * Keep defined for dynamic memory allocation.
  */
-#define ULAPACK_USE_DYNAMIC_ALLOC
 
 #ifndef ULAPACK_USE_STATIC_ALLOC
     #ifndef ULAPACK_USE_DYNAMIC_ALLOC
